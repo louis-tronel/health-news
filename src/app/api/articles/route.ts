@@ -13,6 +13,28 @@ import {
 // Alan's operating regions for priority
 const ALAN_REGIONS = ["france", "belgium", "spain", "canada", "europe"];
 
+// Company-specific sources to exclude from main feed (too anecdotal)
+// These should only appear in the Competitors tab
+const COMPANY_SPECIFIC_SOURCES = [
+  "Google News - Alan",
+  "Google News - Harmonie Mutuelle",
+  "Google News - Malakoff Humanis",
+  "Google News - AXA Santé France",
+  "Google News - Groupe VYV MGEN",
+  "Google News - AG2R La Mondiale",
+  "Google News - Groupama Santé",
+  "Google News - Oscar Health",
+  "Google News - Doctolib",
+  "Google News - Kry Livi",
+  "Google News - Wefox",
+  "Alan Blog",
+];
+
+// Low-relevance sources to exclude entirely
+const EXCLUDED_SOURCES = [
+  "Silicon Canals",
+];
+
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
 
@@ -117,6 +139,23 @@ export async function GET(request: NextRequest) {
 
   // Always filter out irrelevant articles (negative keyword matches)
   let filteredArticles = articlesWithRelevance.filter((a) => !a.isFiltered);
+
+  // Filter out company-specific sources from main feed (unless explicitly requesting that source)
+  // These sources return too anecdotal news - they should only appear in Competitors tab
+  if (!source || source === "all") {
+    filteredArticles = filteredArticles.filter((a) => {
+      const articleSource = a.source || "";
+      // Exclude company-specific Google News feeds
+      if (COMPANY_SPECIFIC_SOURCES.includes(articleSource)) {
+        return false;
+      }
+      // Exclude other low-relevance sources
+      if (EXCLUDED_SOURCES.includes(articleSource)) {
+        return false;
+      }
+      return true;
+    });
+  }
 
   // Filter by minimum relevance if specified
   if (minRelevance > 0) {
