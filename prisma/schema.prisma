@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model Article {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  url         String   @unique
+  source      String
+  category    String   @default("general")
+  imageUrl    String?
+  publishedAt DateTime
+  createdAt   DateTime @default(now())
+}
+
+model Feed {
+  id            String    @id @default(cuid())
+  name          String
+  url           String    @unique
+  category      String
+  lastFetchedAt DateTime?
+  isActive      Boolean   @default(true)
+}
+
+model CompetitorReview {
+  id           String   @id @default(cuid())
+  competitorId String   // e.g., "alan", "axa", "malakoff"
+  text         String
+  rating       Int
+  date         DateTime
+  source       String   // e.g., "Trustpilot", "App Store", "Google Play"
+  sentiment    String   // "positive", "negative", "neutral"
+  fetchedAt    DateTime @default(now())
+
+  @@index([competitorId])
+  @@index([date])
+}
