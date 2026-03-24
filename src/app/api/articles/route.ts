@@ -30,8 +30,23 @@ const COMPANY_SPECIFIC_SOURCES = [
   "Alan Blog",
 ];
 
-// Low-relevance sources to exclude entirely
+// Sources to exclude from main feed (removed from Top 10 or low-relevance)
 const EXCLUDED_SOURCES = [
+  // Removed - not in Top 10 by audience
+  "L'Argus de l'Assurance",
+  "TICsanté",
+  "News Assurances Pro",
+  "MobiHealthNews",
+  "Healthcare Dive",
+  "Rock Health",
+  "Coverager",
+  "The Digital Insurer",
+  "Digital Insurance",
+  "Google News - Insurtech France",
+  "CNIL",
+  "HAS",
+  "ACPR (Autorité de contrôle)",
+  // Low-relevance
   "Silicon Canals",
 ];
 

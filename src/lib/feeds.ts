@@ -16,133 +16,68 @@ export interface FeedConfig {
 }
 
 export const DEFAULT_FEEDS: FeedConfig[] = [
-  // === FRENCH INSURANCE & HEALTH ===
-  {
-    name: "L'Argus de l'Assurance",
-    url: "https://www.argusdelassurance.com/rss.xml",
-    category: "insurance",
-  },
-  {
-    name: "TICsanté",
-    url: "https://www.ticsante.com/feed/",
-    category: "health_tech",
-  },
-  {
-    name: "Frenchweb",
-    url: "https://www.frenchweb.fr/feed",
-    category: "health_tech",
-  },
-  {
-    name: "Maddyness",
-    url: "https://www.maddyness.com/feed/",
-    category: "funding",
-  },
-  {
-    name: "News Assurances Pro",
-    url: "https://www.newsassurancespro.com/feed/",
-    category: "insurance",
-  },
+  // === TOP 10 SOURCES BY AUDIENCE ===
+  // Only keeping major outlets to surface important news
 
-  // === EUROPEAN TECH & INSURTECH ===
-  {
-    name: "Sifted",
-    url: "https://sifted.eu/feed",
-    category: "funding",
-  },
-  {
-    name: "EU-Startups",
-    url: "https://www.eu-startups.com/feed/",
-    category: "funding",
-  },
-  {
-    name: "Tech.eu",
-    url: "https://tech.eu/feed/",
-    category: "funding",
-  },
-
-  // === HEALTH TECH ===
-  {
-    name: "MobiHealthNews",
-    url: "https://www.mobihealthnews.com/feed",
-    category: "health_tech",
-  },
-  {
-    name: "Healthcare IT News",
-    url: "https://www.healthcareitnews.com/feed",
-    category: "health_tech",
-  },
-  {
-    name: "Rock Health",
-    url: "https://rockhealth.com/feed/",
-    category: "health_tech",
-  },
-  {
-    name: "STAT News",
-    url: "https://www.statnews.com/feed/",
-    category: "health_tech",
-  },
-  {
-    name: "Fierce Healthcare",
-    url: "https://www.fiercehealthcare.com/rss/xml",
-    category: "health_tech",
-  },
-  {
-    name: "Healthcare Dive",
-    url: "https://www.healthcaredive.com/feeds/news/",
-    category: "health_tech",
-  },
-
-  // === REGULATORY ===
-  {
-    name: "CNIL",
-    url: "https://www.cnil.fr/fr/rss.xml",
-    category: "regulatory",
-  },
-  {
-    name: "HAS",
-    url: "https://www.has-sante.fr/jcms/p_3048847/fr/flux-rss",
-    category: "regulatory",
-  },
-  {
-    name: "ACPR (Autorité de contrôle)",
-    url: "https://acpr.banque-france.fr/rss/actualites",
-    category: "regulatory",
-  },
-
-  // === FUNDING & BUSINESS NEWS ===
+  // #1 - TechCrunch Health (~10M+ monthly visitors)
   {
     name: "TechCrunch Health",
     url: "https://techcrunch.com/category/health/feed/",
     category: "funding",
   },
-
-  // === INSURANCE INDUSTRY ===
+  // #2 - STAT News (~3M monthly visitors)
+  {
+    name: "STAT News",
+    url: "https://www.statnews.com/feed/",
+    category: "health_tech",
+  },
+  // #3 - Maddyness (~1M monthly visitors)
+  {
+    name: "Maddyness",
+    url: "https://www.maddyness.com/feed/",
+    category: "funding",
+  },
+  // #4 - Sifted (~500K monthly visitors)
+  {
+    name: "Sifted",
+    url: "https://sifted.eu/feed",
+    category: "funding",
+  },
+  // #5 - Frenchweb (~500K monthly visitors)
+  {
+    name: "Frenchweb",
+    url: "https://www.frenchweb.fr/feed",
+    category: "health_tech",
+  },
+  // #6 - Fierce Healthcare (~500K monthly visitors)
+  {
+    name: "Fierce Healthcare",
+    url: "https://www.fiercehealthcare.com/rss/xml",
+    category: "health_tech",
+  },
+  // #7 - Healthcare IT News (~300K monthly visitors)
+  {
+    name: "Healthcare IT News",
+    url: "https://www.healthcareitnews.com/feed",
+    category: "health_tech",
+  },
+  // #8 - EU-Startups (~300K monthly visitors)
+  {
+    name: "EU-Startups",
+    url: "https://www.eu-startups.com/feed/",
+    category: "funding",
+  },
+  // #9 - Insurance Journal (~300K monthly visitors)
   {
     name: "Insurance Journal",
     url: "https://www.insurancejournal.com/feed/",
     category: "insurance",
   },
+  // #10 - Tech.eu (~200K monthly visitors)
   {
-    name: "Coverager",
-    url: "https://coverager.com/feed/",
-    category: "insurance",
-  },
-  {
-    name: "The Digital Insurer",
-    url: "https://www.the-digital-insurer.com/feed/",
-    category: "insurance",
-  },
-  {
-    name: "Digital Insurance",
-    url: "https://www.dig-in.com/feed",
-    category: "insurance",
-  },
-
-  // === GENERAL INSURTECH NEWS (stays in main feed) ===
-  {
-    name: "Google News - Insurtech France",
-    url: "https://news.google.com/rss/search?q=insurtech+france+assurance&hl=fr&gl=FR&ceid=FR:fr",
-    category: "insurance",
+    name: "Tech.eu",
+    url: "https://tech.eu/feed/",
+    category: "funding",
   },
 
   // === COMPETITOR-SPECIFIC NEWS (shown in Competitors tab only) ===
