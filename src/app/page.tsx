@@ -1,10 +1,8 @@
 import { prisma } from "@/lib/db";
-import { ArticleList } from "@/components/ArticleList";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { SyncButton } from "@/components/SyncButton";
-import Link from "next/link";
+import { Rss } from "lucide-react";
 
 const CATEGORY_LABELS: Record<string, string> = {
   health_tech: "Health Tech",
@@ -15,7 +13,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 };
 
 async function getStats() {
-  const [totalArticles, totalFeeds, categoryCounts, recentArticles] =
+  const [totalArticles, totalFeeds, categoryCounts, activeFeeds] =
     await Promise.all([
       prisma.article.count(),
       prisma.feed.count({ where: { isActive: true } }),
@@ -23,9 +21,9 @@ async function getStats() {
         by: ["category"],
         _count: { category: true },
       }),
-      prisma.article.findMany({
-        orderBy: { publishedAt: "desc" },
-        take: 9,
+      prisma.feed.findMany({
+        where: { isActive: true },
+        orderBy: { name: "asc" },
       }),
     ]);
 
@@ -39,7 +37,7 @@ async function getStats() {
       },
       {} as Record<string, number>
     ),
-    recentArticles,
+    activeFeeds,
   };
 }
 
@@ -102,18 +100,20 @@ export default async function DashboardPage() {
       </div>
 
       <div>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-gray-900">
-            Articles Récents
-          </h2>
-          <Link href="/articles">
-            <Button variant="ghost" size="sm">
-              Voir tout
-            </Button>
-          </Link>
+        <h2 className="text-lg font-semibold text-gray-900 mb-4">
+          Sources Actives
+        </h2>
+        <div className="grid gap-3 md:grid-cols-2">
+          {stats.activeFeeds.map((feed) => (
+            <Card key={feed.id} className="flex items-center p-4">
+              <Rss className="h-5 w-5 text-blue-500 mr-3 flex-shrink-0" />
+              <div className="min-w-0">
+                <p className="font-medium text-gray-900 truncate">{feed.name}</p>
+                <p className="text-sm text-gray-500 truncate">{feed.url}</p>
+              </div>
+            </Card>
+          ))}
         </div>
-
-        <ArticleList articles={stats.recentArticles} />
       </div>
     </div>
   );
